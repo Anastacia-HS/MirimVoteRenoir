@@ -2,8 +2,10 @@ package kr.hs.e_mirim.s2019s04.mirimvoterenoir;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("르노와르의 선호 작품 투표");
 
         for(int i = 0; i < voteCount.length; i++) {
             voteCount[i] = 0;
@@ -36,5 +39,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button btnDone = findViewById(R.id.btn_done);
+        btnDone.setOnClickListener(btnListener);
     }
+
+    View.OnClickListener btnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("voteCount", voteCount);
+            intent.putExtra("imgNames", imgNames);
+            startActivity(intent);
+        }
+    };
 }
